@@ -94,6 +94,11 @@ jobs:
           service: ${{ env.CLOUD_RUN_SERVICE }}
           image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT }}/devpulse/${{ env.CLOUD_RUN_SERVICE }}:${{ github.sha }}
           region: ${{ env.GCP_REGION }}
+          env_vars: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+            REDIS_URL=
+            ENVIRONMENT=production
+            PORT=8080
 
       - name: Set up Node
         uses: actions/setup-node@v4
