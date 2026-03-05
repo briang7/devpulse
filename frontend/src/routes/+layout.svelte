@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import { onMount } from 'svelte';
-	import { fly, fade } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import { initAuth, isAuthenticated, isLoading } from '$lib/stores/auth';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
@@ -86,11 +86,7 @@
 			style="margin-left: {sidebarCollapsed ? '4.5rem' : '16rem'}"
 		>
 			<div class="p-4 md:p-6">
-				{#key currentPath}
-					<div in:fly={{ y: 8, duration: 250, delay: 80 }} out:fade={{ duration: 120 }}>
-						{@render children()}
-					</div>
-				{/key}
+				{@render children()}
 			</div>
 		</main>
 	</div>
