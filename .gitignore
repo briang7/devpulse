@@ -1,0 +1,44 @@
+# Dependencies
+node_modules
+
+# Frontend build output
+frontend/.output
+frontend/.svelte-kit
+frontend/build
+frontend/.vercel
+frontend/.netlify
+frontend/.wrangler
+
+# Backend binary
+backend/devpulse
+backend/*.exe
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Docker volumes
+devpulse-pgdata
+devpulse-redis
+
+# Go
+backend/vendor/
+
+# Monitoring data
+monitoring/grafana/data

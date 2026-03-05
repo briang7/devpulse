@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: devpulse-config
+data:
+  PORT: "8080"
+  ENVIRONMENT: "production"
+  DATABASE_URL: "postgres://devpulse:devpulse@postgres-svc:5432/devpulse?sslmode=require"
+  REDIS_URL: "redis://redis-svc:6379"
+  CORS_ORIGINS: "https://devpulse.dev"
+  FIREBASE_PROJECT: "webvista-builder"

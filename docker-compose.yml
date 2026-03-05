@@ -1,0 +1,86 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: devpulse-postgres
+    environment:
+      POSTGRES_DB: devpulse
+      POSTGRES_USER: devpulse
+      POSTGRES_PASSWORD: devpulse
+    ports:
+      - "5433:5432"
+    volumes:
+      - devpulse-pgdata:/var/lib/postgresql/data
+      - ./backend/database/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U devpulse"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: devpulse-redis
+    ports:
+      - "6380:6379"
+    volumes:
+      - devpulse-redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: deployments/docker/Dockerfile
+    container_name: devpulse-api
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: 8080
+      ENVIRONMENT: development
+      DATABASE_URL: postgres://devpulse:devpulse@postgres:5432/devpulse?sslmode=disable
+      REDIS_URL: redis://redis:6379
+      CORS_ORIGINS: http://localhost:5173
+      FIREBASE_PROJECT: webvista-builder
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app/src
+    restart: unless-stopped
+
+  # Optional monitoring services
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    container_name: devpulse-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./backend/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - devpulse-prometheus:/prometheus
+    profiles:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:10.4.0
+    container_name: devpulse-grafana
+    ports:
+      - "3200:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: devpulse
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - ./backend/monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - devpulse-grafana:/var/lib/grafana
+    profiles:
+      - monitoring
+
+volumes:
+  devpulse-pgdata:
+  devpulse-redis:
+  devpulse-prometheus:
+  devpulse-grafana:
