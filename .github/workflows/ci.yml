@@ -30,7 +30,7 @@ jobs:
           cache: false
 
       - name: Download dependencies
-        run: go mod download
+        run: go mod tidy
 
       - name: Build
         run: go build ./...
