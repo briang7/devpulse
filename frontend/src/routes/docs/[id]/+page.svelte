@@ -156,9 +156,8 @@
         {/if}
       </div>
     {:else}
-      <div class="flex flex-col items-center justify-center py-16 gap-3 animate-fade-in">
-        <div class="w-8 h-8 rounded-lg skeleton-shimmer"></div>
-        <p class="text-[var(--dp-text-muted)]">Loading document...</p>
+      <div class="flex flex-col items-center justify-center py-16 gap-3">
+        <div class="w-5 h-5 border-2 border-violet-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
     {/if}
   </div>

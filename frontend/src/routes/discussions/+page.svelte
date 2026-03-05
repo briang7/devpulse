@@ -79,13 +79,13 @@
     </div>
   {/if}
 
-  {#if $discussionsLoading}
+  {#if $discussionsLoading && $discussionsStore.length === 0}
     <div class="space-y-4">
       {#each Array(5) as _}
         <SkeletonLoader type="card" />
       {/each}
     </div>
-  {:else if $discussionsStore.length === 0}
+  {:else if !$discussionsLoading && $discussionsStore.length === 0}
     <EmptyState title="No discussions yet" description="Start a discussion to collaborate with your team." icon="discussions" />
   {:else}
     <div class="space-y-3 stagger-children">

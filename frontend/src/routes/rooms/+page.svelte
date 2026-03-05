@@ -61,13 +61,13 @@
     </button>
   </div>
 
-  {#if $roomsLoading}
+  {#if $roomsLoading && $roomsStore.length === 0}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {#each Array(6) as _}
         <SkeletonLoader type="card" />
       {/each}
     </div>
-  {:else if $roomsStore.length === 0}
+  {:else if !$roomsLoading && $roomsStore.length === 0}
     <EmptyState title="No code rooms yet" description="Create your first room to start collaborating on code in real-time." icon="rooms" />
   {:else}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 stagger-children">

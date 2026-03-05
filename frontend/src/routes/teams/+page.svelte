@@ -52,13 +52,13 @@
     </button>
   </div>
 
-  {#if $teamsLoading}
+  {#if $teamsLoading && $teamsStore.length === 0}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {#each Array(6) as _}
         <SkeletonLoader type="card" />
       {/each}
     </div>
-  {:else if $teamsStore.length === 0}
+  {:else if !$teamsLoading && $teamsStore.length === 0}
     <EmptyState title="No teams yet" description="Create a team to start collaborating with others." icon="teams" />
   {:else}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 stagger-children">

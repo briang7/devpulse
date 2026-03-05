@@ -73,7 +73,7 @@
     </div>
   {/if}
 
-  {#if $documentsLoading}
+  {#if $documentsLoading && $documentsStore.length === 0}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {#each Array(6) as _}
         <div class="rounded-xl bg-[var(--dp-bg-card)] border border-[var(--dp-border)] p-5">
@@ -91,7 +91,7 @@
         </div>
       {/each}
     </div>
-  {:else if $documentsStore.length === 0}
+  {:else if !$documentsLoading && $documentsStore.length === 0}
     <EmptyState title="No documents yet" description="Create documentation for your team's projects." icon="docs" />
   {:else}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 stagger-children">
