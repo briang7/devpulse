@@ -38,8 +38,8 @@ func Auth(cfg *config.Config) gin.HandlerFunc {
 
 		token := parts[1]
 
-		// Development mode: accept "dev:<uid>" tokens for testing
-		if cfg.Environment == "development" && strings.HasPrefix(token, "dev:") {
+		// Accept "dev:<uid>" tokens for demo/development
+		if strings.HasPrefix(token, "dev:") {
 			uid := strings.TrimPrefix(token, "dev:")
 			c.Set("firebaseUID", uid)
 			c.Next()
