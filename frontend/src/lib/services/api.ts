@@ -1,9 +1,8 @@
 import { get } from 'svelte/store';
 import { authStore } from '$lib/stores/auth';
 
-// In production, Firebase Hosting proxies /api/** to Cloud Run (same domain, no CORS needed)
-// In development, leave empty to use the local dev server proxy or direct backend
-const BASE_URL = import.meta.env.PUBLIC_API_URL || '';
+// In production, calls Cloud Run directly. In dev, leave empty for local backend.
+const BASE_URL = import.meta.env.VITE_API_URL || '';
 
 class ApiClient {
   private getHeaders(): HeadersInit {

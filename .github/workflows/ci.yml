@@ -110,7 +110,7 @@ jobs:
       - name: Build frontend
         run: cd frontend && npm ci && npm run build
         env:
-          PUBLIC_API_URL: https://devpulse-api-499348773225.us-central1.run.app
+          VITE_API_URL: https://devpulse-api-499348773225.us-central1.run.app
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
