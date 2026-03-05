@@ -7,7 +7,7 @@ on:
     branches: [main, master]
 
 env:
-  GCP_PROJECT: devpulse-app
+  GCP_PROJECT: devhub-app-1234
   GCP_REGION: us-central1
   CLOUD_RUN_SERVICE: devpulse-api
 
